@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  go-app:
+    build: ./
+    command: ./main
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      - DB_PASSWORD=postgres
+
+  db:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - //c:/PostgresQL/data
+      
+      # -//c:/Users/postgresql/DataGripProjects/postgres
+      
+      # -db:// C:/Users/postgresql/AppData/Roaming/JetBrains/DataGrip2022.1/consoles/db/f535b92b-03f6-4557-aa07-7fba6ba02b86
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+volumes:
+  db:
+    driver: local
